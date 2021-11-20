@@ -41,20 +41,16 @@ image_array = numpy.array(image.getdata())
 width = image.size[0]
 height = image.size[1]
 
-# get output file
-output = sys.stdout
-if args.output:
-    output = open(args.output, 'w', encoding='utf-8')
-
 # inverted colors
 if args.invert:
     image_array = 255 - image_array
 
 # print image
-for i in range(0, height):
-    for j in range(0, width):
-        if image_array[i * width + j][0] < 128:
-            print('██', end='', file=output)
-        else:
-            print('  ', end='', file=output)
-    print(file=output)
+with open(args.output, 'w', encoding='utf-8') if args.output else sys.stdout as f:
+    for i in range(0, height):
+        for j in range(0, width):
+            if image_array[i * width + j][0] < 128:
+                print('██', end='', file=f)
+            else:
+                print('  ', end='', file=f)
+        print(file=f)
