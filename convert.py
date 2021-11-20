@@ -47,8 +47,8 @@ if args.invert:
 
 # print image
 with open(args.output, 'w', encoding='utf-8') if args.output else sys.stdout as f:
-    for i in range(0, height):
-        for j in range(0, width):
+    for i in range(height):
+        for j in range(width):
             if image_array[i * width + j][0] < 128:
                 print('██', end='', file=f)
             else:
