@@ -1,11 +1,11 @@
 from PIL import Image
-import qrcode
+from qrcode import QRCode
+from argparse import ArgumentParser
 import numpy
 import sys
-import argparse
 
 # parse arguments
-parser = argparse.ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
+parser = ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
 parser.add_argument('-i', '--input', help='Input image file')
 parser.add_argument('-o', '--output', help='Output file')
 parser.add_argument('--invert', help='Invert colors', action='store_true')
@@ -14,7 +14,7 @@ args = parser.parse_args()
 # generate/load image
 if args.input is None:
     data = input('Enter data to encode: ')
-    qr = qrcode.QRCode(version=1, box_size=1, border=1)
+    qr = QRCode(version=1, box_size=1, border=1)
     qr.add_data(data)
     qr.make(fit=True)
     image = qr.make_image(fill_color=(0, 0, 0), back_color=(255, 255, 255))
