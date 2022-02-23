@@ -1,9 +1,9 @@
+from argparse import ArgumentParser
+from numpy import array
+from os import path
 from PIL import Image
 from qrcode import QRCode, constants
-from argparse import ArgumentParser
-import numpy
-import sys
-from os import path
+from sys import stdout
 
 # parse arguments
 parser = ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
@@ -45,7 +45,7 @@ else:
     except:
         parser.error("unable to open file")
         exit(1)
-image_array = numpy.array(image.getdata())
+image_array = array(image.getdata())
 
 width = image.size[0]
 height = image.size[1]
@@ -62,7 +62,7 @@ while image_array[(offset + scale) * width + (offset + scale)][0] == 0:
 
 # resize
 image = image.resize((width // scale, height // scale), Image.NEAREST)
-image_array = numpy.array(image.getdata())
+image_array = array(image.getdata())
 width = image.size[0]
 height = image.size[1]
 
@@ -71,7 +71,7 @@ if args.invert:
     image_array = 255 - image_array
 
 # print image
-with open(args.output, 'w', encoding='utf-8') if args.output else sys.stdout as f:
+with open(args.output, 'w', encoding='utf-8') if args.output else stdout as f:
     for i in range(height):
         for j in range(width):
             if image_array[i * width + j][0] < 128:
