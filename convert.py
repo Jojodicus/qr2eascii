@@ -9,6 +9,8 @@ parser = ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
 parser.add_argument('-i', '--input', help='Input image file')
 parser.add_argument('-o', '--output', help='Output file')
 parser.add_argument('--invert', help='Invert colors', action='store_true')
+parser.add_argument('-w', '--white', help='Characters used for white (default "██")', default='██')
+parser.add_argument('-b', '--black', help='Characters used for black (default "  ")', default='  ')
 args = parser.parse_args()
 
 # generate/load image
@@ -50,7 +52,7 @@ with open(args.output, 'w', encoding='utf-8') if args.output else sys.stdout as 
     for i in range(height):
         for j in range(width):
             if image_array[i * width + j][0] < 128:
-                print('██', end='', file=f)
+                print(args.white, end='', file=f)
             else:
-                print('  ', end='', file=f)
+                print(args.black, end='', file=f)
         print(file=f)
