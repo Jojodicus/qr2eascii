@@ -7,11 +7,16 @@ Generate a QR-code in E-ASCII-art using the black square symbol (█, U+2588, Al
 - [qrcode](https://pypi.org/project/qrcode/)
 
 ## Usage
-``py convert.py [-h] [-i INPUT] [-o OUTPUT] [--invert]``
+``py convert.py [-h] [-i INPUT] [-o OUTPUT] [--invert] [-w WHITE] [-b BLACK] [-v VERSION] [--border BORDER] [-c {L,M,Q,H}]``
 - ``-h``, ``--help``: Show help message.
 - ``-i INPUT``: Input file.
 - ``-o OUTPUT``: Output file.
 - ``--invert``: Invert colors.
+- ``-w WHITE``: Characters for white pixel (default "██")
+- ``-b BLACK``: Characters for black pixel (default "  ")
+- ``-v VERSION``: QR-Code version (default 1)
+- ``--border BORDER``: Border size of generated QR-Code (default 1)
+- ``-c [L,M,Q,H]``: Error correction mode (default M)
 
 If no input file is given, the program reads the data from stdin.
 
