@@ -1,5 +1,5 @@
 from PIL import Image
-from qrcode import QRCode
+from qrcode import QRCode, constants
 from argparse import ArgumentParser
 import numpy
 import sys
@@ -11,12 +11,27 @@ parser.add_argument('-o', '--output', help='Output file')
 parser.add_argument('--invert', help='Invert colors', action='store_true')
 parser.add_argument('-w', '--white', help='Characters used for white (default "██")', default='██')
 parser.add_argument('-b', '--black', help='Characters used for black (default "  ")', default='  ')
+parser.add_argument('--version', help='Generated QR-Code version (default 1)', default=1)
+parser.add_argument('--border', help='Generated QR-Code border size (default 1)', default=1)
+parser.add_argument('-c', '--correction', help='Error correction modes (default M)', choices=['L', 'M', 'Q', 'H'], default='M')
 args = parser.parse_args()
 
 # generate/load image
 if args.input is None:
     data = input('Enter data to encode: ')
-    qr = QRCode(version=1, box_size=1, border=1)
+
+    # parse error correction
+    # @TODO: update with match case after py3.10 gets widely adopted
+    if args.correction == 'L':
+        ecc = constants.ERROR_CORRECT_L
+    elif args.correction == 'Q':
+        ecc = constants.ERROR_CORRECT_Q
+    elif args.correction == 'H':
+        ecc = constants.ERROR_CORRECT_H
+    else: # default M
+        ecc = constants.ERROR_CORRECT_M
+
+    qr = QRCode(version=args.version, box_size=1, border=args.border, error_correction=ecc)
     qr.add_data(data)
     qr.make(fit=True)
     image = qr.make_image(fill_color=(0, 0, 0), back_color=(255, 255, 255))
