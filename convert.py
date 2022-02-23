@@ -3,10 +3,11 @@ from qrcode import QRCode, constants
 from argparse import ArgumentParser
 import numpy
 import sys
+from os import path
 
 # parse arguments
 parser = ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
-parser.add_argument('-i', '--input', help='Input image file')
+parser.add_argument('-i', '--input', help='Input image file/text')
 parser.add_argument('-o', '--output', help='Output file')
 parser.add_argument('--invert', help='Invert colors', action='store_true')
 parser.add_argument('-w', '--white', help='Characters used for white (default "██")', default='██')
@@ -17,8 +18,11 @@ parser.add_argument('-c', '--correction', help='Error correction modes (default 
 args = parser.parse_args()
 
 # generate/load image
-if args.input is None:
-    data = input('Enter data to encode: ')
+if args.input is None or not path.isfile(args.input):
+    if args.input:
+        data = args.input
+    else:
+        data = input('Enter data to encode: ')
 
     # parse error correction
     # @TODO: update with match case after py3.10 gets widely adopted
@@ -36,7 +40,11 @@ if args.input is None:
     qr.make(fit=True)
     image = qr.make_image(fill_color=(0, 0, 0), back_color=(255, 255, 255))
 else:
-    image = Image.open(args.input)
+    try:
+        image = Image.open(args.input)
+    except:
+        parser.error("unable to open file")
+        exit(1)
 image_array = numpy.array(image.getdata())
 
 width = image.size[0]
