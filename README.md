@@ -6,6 +6,8 @@ Generate a QR-code in E-ASCII-art using the black square symbol (█, U+2588, Al
 - [pillow](https://pillow.readthedocs.io)
 - [qrcode](https://pypi.org/project/qrcode/)
 
+`$ (sudo) pip install -r requirements.txt`
+
 ## Usage
 ``py convert.py [-h] [-i INPUT] [-o OUTPUT] [--invert] [-w WHITE] [-b BLACK] [-v VERSION] [--border BORDER] [-c {L,M,Q,H}]``
 - ``-h``, ``--help``: Show help message.
