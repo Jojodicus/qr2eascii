@@ -15,7 +15,7 @@ Generate a QR-code in E-ASCII-art using the black square symbol (█, U+2588, Al
 - ``-o OUTPUT``: Output file.
 - ``--invert``: Invert colors.
 - ``-w WHITE``: Characters for white pixel (default "██")
-- ``-b BLACK``: Characters for black pixel (default "  ")
+- ``-b BLACK``: Characters for black pixel (default "&nbsp;&nbsp;")
 - ``-v VERSION``: QR-Code version (default 1)
 - ``--border BORDER``: Border size of generated QR-Code (default 1)
 - ``-c [L,M,Q,H]``: Error correction mode (default M)
