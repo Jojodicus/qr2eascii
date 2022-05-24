@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from argparse import ArgumentParser
 from numpy import array
 from os import path
@@ -61,7 +63,7 @@ while image_array[(offset + scale) * width + (offset + scale)][0] == 0:
     scale += 1
 
 # resize
-image = image.resize((width // scale, height // scale), Image.NEAREST)
+image = image.resize((width // scale, height // scale), Image.Resampling.NEAREST)
 image_array = array(image.getdata())
 width = image.size[0]
 height = image.size[1]
