@@ -7,6 +7,10 @@ from PIL import Image
 from qrcode import QRCode, constants
 from sys import stdout
 
+# fix for pillow 9.0.0
+if not hasattr(Image, 'Resampling'):
+    Image.Resampling = Image
+
 # parse arguments
 parser = ArgumentParser(description='Convert a QR-Code image to E-ASCII-Art.')
 parser.add_argument('-i', '--input', help='Input image file/text')
